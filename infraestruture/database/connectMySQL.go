@@ -21,5 +21,9 @@ func Connect() {
 		log.Panic("Erro ao conectar ao banco")
 	}
 
-	db.AutoMigrate(&models.Product{})
+	// Create from map
+
+	db.AutoMigrate(&model.Product{}, &model.Subcategory{}, &model.SubcategoryProduct{})
+
+	DB = db
 }
