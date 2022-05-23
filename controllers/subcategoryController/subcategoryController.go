@@ -1,6 +1,7 @@
 package subcategoryController
 
 import (
+	"github.com/VieiraGabrielAlexandre/ms-vendaonline/core/domain/services/subcategoryService"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/database"
 	model "github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/models"
 	"github.com/gin-gonic/gin"
@@ -23,12 +24,13 @@ func Create(c *gin.Context) {
 			"error": err.Error()})
 		return
 	}
+
 	if err := model.ValidatorSubcategory(&subcategory); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error()})
 		return
 	}
 
-	database.DB.Create(&subcategory)
-	c.JSON(http.StatusOK, subcategory)
+	result := subcategoryService.Create(subcategory)
+	c.JSON(http.StatusOK, result)
 }

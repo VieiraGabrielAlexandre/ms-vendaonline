@@ -1,14 +1,12 @@
-package productsService
+package categoryService
 
 import (
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/database"
 	model "github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/models"
 )
 
-type Product string
+func Create(category model.Category) model.Category {
 
-func Create(product model.Product) model.Product {
-	database.DB.Create(&product)
-
-	return product
+	database.DB.FirstOrCreate(&category, "title = ?", category.Title)
+	return category
 }

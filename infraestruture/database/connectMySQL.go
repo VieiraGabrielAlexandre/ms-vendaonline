@@ -23,7 +23,7 @@ func Connect() {
 
 	// Create from map
 
-	db.AutoMigrate(&model.Product{}, &model.Subcategory{}, &model.SubcategoryProduct{})
+	db.AutoMigrate(&model.Product{}, &model.Subcategory{}, &model.SubcategoriesProducts{}, &model.Category{}, &model.Image{})
 
 	DB = db
 }

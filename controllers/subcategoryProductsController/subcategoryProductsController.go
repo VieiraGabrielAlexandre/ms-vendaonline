@@ -7,7 +7,7 @@ import (
 )
 
 func Show(c *gin.Context) {
-	var subcategoryProducts []model.SubcategoryProduct
+	var subcategoryProducts []model.SubcategoriesProducts
 
 	database.DB.Find(&subcategoryProducts)
 
@@ -15,8 +15,5 @@ func Show(c *gin.Context) {
 }
 
 func Create(c *gin.Context) {
-	var subcategoryProducts []model.SubcategoryProduct
-	
-	c.JSON(200, subcategoryProducts)
 
 }
