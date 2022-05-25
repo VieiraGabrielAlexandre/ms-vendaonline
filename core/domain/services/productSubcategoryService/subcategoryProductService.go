@@ -8,7 +8,7 @@ import (
 
 type SubcategoryProduct string
 
-func Create(subcategoryProduct model.SubcategoryProduct) {
+func Create(subcategoryProduct model.SubcategoryProducts) {
 	database.DB.Create(&subcategoryProduct)
 
 	fmt.Println(&subcategoryProduct)
