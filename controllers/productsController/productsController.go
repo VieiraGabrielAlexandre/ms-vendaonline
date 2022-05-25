@@ -41,8 +41,11 @@ func Index(c *gin.Context) {
 	var product model.Product
 
 	id := c.Params.ByName("id")
-	database.DB.First(&product, id)
+
+	database.DB.Model(&product).
+		Preload("Images").
+		Preload("Subcategories").
+		First(&product, "id = ?", id)
 
 	c.JSON(200, product)
-
 }

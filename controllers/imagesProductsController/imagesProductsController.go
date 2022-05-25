@@ -9,8 +9,8 @@ import (
 func Index(c *gin.Context) {
 	var images []model.Image
 
-	id := c.Params.ByName("id")
-	database.DB.First(&images, id)
+	id := c.Params.ByName("id_product")
+	database.DB.Find(&images, "id_product = ?", id)
 
 	c.JSON(200, images)
 }
