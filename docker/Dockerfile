@@ -9,8 +9,5 @@ WORKDIR ${GOPATH}
 RUN apt-get update -y && \
 	apt-get install -y \
 	vim
-
-RUN unset GOPATH
-
 # Start process
-ENTRYPOINT ["unset GOPATH"]
+ENTRYPOINT ["main.go"]
