@@ -1,16 +1,18 @@
-# Telling to use Docker's golang ready image
-FROM golang
+# The base go-image
+FROM golang:1.14-alpine
 
-EXPOSE 5566
+# Create a directory for the app
+RUN mkdir /app
 
-# Set pwd to the go folder
-WORKDIR ${GOPATH}
+# Copy all files from the current directory to the app directory
+COPY . /app
 
-RUN apt-get update -y && \
-	apt-get install -y \
-	vim
+# Set working directory
+WORKDIR /app
 
-RUN unset GOPATH
+# Run command as described:
+# go build will build an executable file named server in the current directory
+RUN go build -o server .
 
-# Start process
-ENTRYPOINT ["unset GOPATH"]
+# Run the server executable
+CMD [ "/app/server" ]

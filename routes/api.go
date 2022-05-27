@@ -39,5 +39,5 @@ func HandleRequests() {
 		v1.GET("/images/:id_product", imagesProductsController.Index)
 	}
 
-	router.Run(":5566")
+	router.Run(":80")
 }

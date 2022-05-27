@@ -5,7 +5,7 @@ services:
 
   db:
     image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+    # command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
       - "3307:3306"
@@ -25,22 +25,24 @@ services:
       - project
 
   web:
+    image: golang
     build:
       context: .
       dockerfile: docker/Dockerfile
     ports:
       - 5566:5566
+    networks:
+      - project
     env_file:
       - docker/.env
     links:
       - db
     volumes:
       - .:/go
-    networks:
-      - project
 
 networks:
   project:
+    driver: "bridge"
 
 volumes:
   web:
