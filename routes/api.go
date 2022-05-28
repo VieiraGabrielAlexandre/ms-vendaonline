@@ -8,6 +8,7 @@ import (
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/subcategoryController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/subcategoryProductsController"
 	"github.com/gin-gonic/gin"
+	"os"
 )
 
 func HandleRequests() {
@@ -39,5 +40,6 @@ func HandleRequests() {
 		v1.GET("/images/:id_product", imagesProductsController.Index)
 	}
 
-	router.Run(":80")
+	router.Run(":" + os.Getenv("SERVER_PORT"))
+
 }

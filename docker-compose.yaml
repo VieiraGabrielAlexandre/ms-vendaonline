@@ -24,21 +24,21 @@ services:
     networks:
       - project
 
-  web:
-    image: golang
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-    ports:
-      - 5566:5566
-    networks:
-      - project
-    env_file:
-      - docker/.env
-    links:
-      - db
-    volumes:
-      - .:/go
+  #web:
+  #  image: golang
+  #  build:
+  #    context: .
+  #    dockerfile: docker/Dockerfile
+  #  ports:
+  #    - 5566:5566
+  #  networks:
+  #    - project
+  #  env_file:
+  #    - docker/.env
+  #  links:
+  #    - db
+  #  volumes:
+  #    - .:/go
 
 networks:
   project:
