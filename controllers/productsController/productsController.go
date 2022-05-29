@@ -4,6 +4,7 @@ import (
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/core/domain/services/productsService"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/database"
 	model "github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/models"
+	"github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/scopes"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
@@ -12,7 +13,7 @@ import (
 func Show(c *gin.Context) {
 	var products []model.Product
 
-	database.DB.Find(&products)
+	database.DB.Scopes(scopes.Paginate(c)).Find(&products)
 
 	c.JSON(200, products)
 }
