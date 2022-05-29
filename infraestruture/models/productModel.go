@@ -15,8 +15,9 @@ type Product struct {
 	Image         string                 `json:"image" validate:"nonzero"`
 	Category      string                 `json:"category" validate:"nonzero"`
 	Seller_id     int                    `json:"seller_id" validate:"nonzero"`
-	Images        []Images               `gorm:"foreignKey:ID_Product;constraint:onDelete:SET NULL,onUpdate:CASCADE"`
-	Subcategories []SubcategoriesProduct `gorm:"foreignKey:ID_Product;constraint:onDelete:SET NULL,onUpdate:CASCADE"`
+	Images        []Images               `gorm:"foreignKey:ID_Product;constraint:onDelete:SET NULL,onUpdate:CASCADE" validate:"nonzero"`
+	Subcategories []SubcategoriesProduct `gorm:"foreignKey:ID_Product;constraint:onDelete:SET NULL,onUpdate:CASCADE" validate:"nonzero"`
+	Prices        Price                  `gorm:"foreignKey:ID_Product;constraint:onDelete:SET NULL,onUpdate:CASCADE" validate:"nonzero"`
 }
 
 type Images struct {
@@ -30,6 +31,13 @@ type SubcategoriesProduct struct {
 	gorm.Model
 	ID_Product     int `json:"id_product"`
 	ID_Subcategory int `json:"id_subcategory" validate:"nonzero"`
+}
+
+type Price struct {
+	gorm.Model
+	ID_Product int     `json:"int"`
+	Price      float64 `json:"price" validate:"nonzero"`
+	Full_Price float64 `json:"full_price" validate:"nonzero"`
 }
 
 func ValidatorProduct(product *Product) error {

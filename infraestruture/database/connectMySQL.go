@@ -36,7 +36,7 @@ func Connect() {
 	// Create from map
 
 	fmt.Println("Executing migrations ...")
-	db.AutoMigrate(&model.Product{}, &model.Subcategory{}, &model.SubcategoriesProducts{}, &model.Category{}, &model.Image{}, &model.Comments{})
+	db.AutoMigrate(&model.Product{}, &model.Subcategory{}, &model.SubcategoriesProducts{}, &model.Category{}, &model.Image{}, &model.Comments{}, &model.Prices{})
 	fmt.Println("Sucess")
 
 	DB = db

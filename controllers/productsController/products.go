@@ -13,7 +13,11 @@ import (
 func Show(c *gin.Context) {
 	var products []model.Product
 
-	database.DB.Scopes(scopes.Paginate(c)).Find(&products)
+	database.DB.Scopes(scopes.Paginate(c)).
+		Preload("Images").
+		Preload("Subcategories").
+		Preload("Prices").
+		Find(&products)
 
 	c.JSON(200, products)
 }
@@ -46,6 +50,7 @@ func Index(c *gin.Context) {
 	database.DB.Model(&product).
 		Preload("Images").
 		Preload("Subcategories").
+		Preload("Prices").
 		First(&product, "id = ?", id)
 
 	c.JSON(200, product)

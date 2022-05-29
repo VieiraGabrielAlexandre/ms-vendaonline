@@ -4,6 +4,7 @@ import (
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/categoryController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/commentsController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/imagesProductsController"
+	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/pricesController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/productsController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/relatedProductsController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/subcategoryController"
@@ -21,6 +22,9 @@ func HandleRequests() {
 		v1.GET("/products", productsController.Show)
 		v1.POST("/products", productsController.Create)
 		v1.GET("/products/:id", productsController.Index)
+
+		//Prices
+		v1.GET("/prices", pricesController.Index)
 
 		//RelatedProducts
 		v1.GET("/related-products/:category", relatedProductsController.Show)
