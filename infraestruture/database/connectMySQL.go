@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -9,8 +10,7 @@ import (
 )
 
 var (
-	DB  *gorm.DB
-	err error
+	DB *gorm.DB
 )
 
 func Connect() {
@@ -35,7 +35,9 @@ func Connect() {
 
 	// Create from map
 
-	db.AutoMigrate(&model.Product{}, &model.Subcategory{}, &model.SubcategoriesProducts{}, &model.Category{}, &model.Image{})
+	fmt.Println("Executing migrations ...")
+	db.AutoMigrate(&model.Product{}, &model.Subcategory{}, &model.SubcategoriesProducts{}, &model.Category{}, &model.Image{}, &model.Comments{})
+	fmt.Println("Sucess")
 
 	DB = db
 }

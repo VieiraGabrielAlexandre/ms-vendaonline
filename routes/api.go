@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/categoryController"
+	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/commentsController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/imagesProductsController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/productsController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/relatedProductsController"
@@ -38,6 +39,10 @@ func HandleRequests() {
 
 		//Images
 		v1.GET("/images/:id_product", imagesProductsController.Index)
+
+		//Coments Produts
+		v1.POST("comments", commentsController.Create)
+		v1.GET("comments/:id_product", commentsController.Index)
 	}
 
 	router.Run(":" + os.Getenv("SERVER_PORT"))
