@@ -9,12 +9,18 @@ import (
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/relatedProductsController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/subcategoryController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/subcategoryProductsController"
+	swaggerfiles "github.com/swaggo/files"
+
+	docs "github.com/VieiraGabrielAlexandre/ms-vendaonline/docs"
 	"github.com/gin-gonic/gin"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"os"
 )
 
 func HandleRequests() {
 	router := gin.Default()
+
+	docs.SwaggerInfo.BasePath = "/api/v1"
 
 	v1 := router.Group("/api/v1")
 	{
@@ -24,7 +30,7 @@ func HandleRequests() {
 		v1.GET("/products/:id", productsController.Index)
 
 		//Prices
-		v1.GET("/prices", pricesController.Index)
+		v1.GET("/prices/:id_product", pricesController.Index)
 
 		//RelatedProducts
 		v1.GET("/related-products/:category", relatedProductsController.Show)
@@ -48,6 +54,8 @@ func HandleRequests() {
 		v1.POST("comments", commentsController.Create)
 		v1.GET("comments/:id_product", commentsController.Index)
 	}
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	router.Run(":" + os.Getenv("SERVER_PORT"))
 

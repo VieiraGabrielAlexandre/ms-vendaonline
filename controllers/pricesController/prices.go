@@ -9,6 +9,8 @@ import (
 func Index(c *gin.Context) {
 	var prices model.Prices
 
-	database.DB.First(&prices)
+	id := c.Params.ByName("id_product")
+
+	database.DB.First(&prices).Where("id_product = ?", id)
 	c.JSON(200, prices)
 }
