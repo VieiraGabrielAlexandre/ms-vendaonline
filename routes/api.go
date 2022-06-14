@@ -9,50 +9,67 @@ import (
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/relatedProductsController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/subcategoryController"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/controllers/subcategoryProductsController"
-	swaggerfiles "github.com/swaggo/files"
-
 	docs "github.com/VieiraGabrielAlexandre/ms-vendaonline/docs"
+	"github.com/VieiraGabrielAlexandre/ms-vendaonline/middlewares"
+	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"log"
 	"os"
 )
 
 func HandleRequests() {
 	router := gin.Default()
 
+	authMiddleware := middlewares.Auth()
+
 	docs.SwaggerInfo.BasePath = "/api/v1"
 
-	v1 := router.Group("/api/v1")
+	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
+		claims := jwt.ExtractClaims(c)
+		log.Printf("NoRoute claims: %#v\n", claims)
+		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
+	})
+
+	router.POST("/login", authMiddleware.LoginHandler)
+
+	auth := router.Group("/api/v1")
+	auth.GET("/refresh_token", authMiddleware.RefreshHandler)
+
+	auth.Use(authMiddleware.MiddlewareFunc())
 	{
 		//Products
-		v1.GET("/products", productsController.Show)
-		v1.POST("/products", productsController.Create)
-		v1.GET("/products/:id", productsController.Index)
+		auth.GET("/products", productsController.Show)
+		auth.POST("/products", productsController.Create)
+		auth.GET("/products/:id", productsController.Index)
 
 		//Prices
-		v1.GET("/prices/:id_product", pricesController.Index)
+		auth.GET("/prices/:id_product", pricesController.Index)
 
 		//RelatedProducts
-		v1.GET("/related-products/:category", relatedProductsController.Show)
+		auth.GET("/related-products/:category", relatedProductsController.Show)
 
 		//Subcategory
-		v1.GET("/subcategory", subcategoryController.Show)
-		v1.POST("/subcategory", subcategoryController.Create)
+		auth.GET("/subcategory", subcategoryController.Show)
+		auth.POST("/subcategory", subcategoryController.Create)
 
 		//Subcategory Products
-		v1.GET("/subcategory-products", subcategoryProductsController.Show)
-		v1.POST("/subcategory-products", subcategoryProductsController.Create)
+		auth.GET("/subcategory-products", subcategoryProductsController.Show)
+		auth.POST("/subcategory-products", subcategoryProductsController.Create)
 
 		//Category
-		v1.GET("/category", categoryController.Show)
-		v1.POST("/category", categoryController.Create)
+		auth.POST("/category", categoryController.Create)
+		auth.GET("/category", categoryController.Show)
 
 		//Images
-		v1.GET("/images/:id_product", imagesProductsController.Index)
+		auth.GET("/images/:id_product", imagesProductsController.Index)
 
 		//Coments Produts
-		v1.POST("comments", commentsController.Create)
-		v1.GET("comments/:id_product", commentsController.Index)
+		auth.POST("comments", commentsController.Create)
+		auth.GET("comments/:id_product", commentsController.Index)
+
+		//Stars Products
 	}
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
