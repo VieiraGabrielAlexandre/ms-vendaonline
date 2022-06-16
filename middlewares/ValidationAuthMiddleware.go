@@ -1,6 +1,8 @@
 package middlewares
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/database"
 	model "github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/models"
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/structs"
@@ -98,9 +100,9 @@ func Authenticator() func(c *gin.Context) (interface{}, error) {
 		userID := loginVals.Username
 		password := loginVals.Password
 
-		userData, _ := getLoginData(userID, password)
+		userData, err := getLoginData(userID, password)
 
-		if userData.Active == true {
+		if (err == "") && (userData.Active == true) {
 
 			if userData != nil {
 				return &structs.User{
@@ -119,7 +121,8 @@ func getLoginData(email string, password string) (user *model.Users, err string)
 	var loginVals model.Users
 
 	email = email
-	password = password
+	hash := md5.Sum([]byte(password))
+	password = hex.EncodeToString(hash[:])
 
 	database.DB.Model(&loginVals).Where("email = ?", email).Where("password = ?", password).Find(&loginVals)
 
