@@ -68,8 +68,6 @@ func HandleRequests() {
 		//Coments Produts
 		auth.POST("comments", commentsController.Create)
 		auth.GET("comments/:id_product", commentsController.Index)
-
-		//Stars Products
 	}
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))

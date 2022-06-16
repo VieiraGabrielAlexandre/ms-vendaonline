@@ -5,6 +5,7 @@ import (
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/infraestruture/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 	"log"
 	"os"
 )
@@ -27,7 +28,9 @@ func Connect() {
 		os.Getenv("DB_DATABASE") +
 		"?charset=utf8mb4&parseTime=True&loc=Local"
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info),
+	})
 
 	if err != nil {
 		log.Panic(err)
@@ -36,7 +39,7 @@ func Connect() {
 	// Create from map
 
 	fmt.Println("Executing migrations ...")
-	db.AutoMigrate(&model.Product{}, &model.Subcategory{}, &model.SubcategoriesProducts{}, &model.Category{}, &model.Image{}, &model.Comments{}, &model.Prices{})
+	db.AutoMigrate(&model.Product{}, &model.Subcategory{}, &model.SubcategoriesProducts{}, &model.Category{}, &model.Image{}, &model.Comments{}, &model.Prices{}, &model.Users{})
 	fmt.Println("Sucess")
 
 	DB = db
