@@ -1,0 +1,89 @@
+info:
+  contact:
+    email: suporte@xplosao.com.br
+    name: API Support
+    url: https://www.xplosao.com.br/support
+  description: This is doc for API products and co-related.
+  title: API - Xplosão - Products and correlated
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Request to generate a JWT token to your requests
+      parameters:
+      - description: User name
+        in: query
+        name: username
+        type: string
+      - description: Password
+        in: query
+        name: password
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: authorization example
+      tags:
+      - Authorization
+  /products:
+    get:
+      consumes:
+      - application/json
+      description: Products per page and page limit
+      operationId: show-products
+      parameters:
+      - description: Page of response products
+        in: query
+        name: page
+        type: integer
+      - description: Items per page
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: array
+            type: array
+      summary: products
+      tags:
+      - Products
+  /products/{id_product}:
+    get:
+      consumes:
+      - application/json
+      description: Product per id
+      operationId: index-products
+      parameters:
+      - description: ID product
+        in: path
+        name: id_product
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: array
+            type: array
+      summary: products
+      tags:
+      - Products
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

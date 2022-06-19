@@ -32,7 +32,7 @@ func HandleRequests() {
 		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
 	})
 
-	router.POST("/login", authMiddleware.LoginHandler)
+	router.POST("/api/v1/login", authMiddleware.LoginHandler)
 
 	auth := router.Group("/api/v1")
 	auth.GET("/refresh_token", authMiddleware.RefreshHandler)

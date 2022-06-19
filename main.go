@@ -6,15 +6,18 @@ import (
 	"github.com/VieiraGabrielAlexandre/ms-vendaonline/routes"
 )
 
-// @title Swagger Example API
+// @title API - Xplosão - Products and correlated
 // @version 1.0
 // @description This is doc for API products and co-related.
 
 // @contact.name API Support
-// @contact.url https://www.xplosap.com.br/support
+// @contact.url https://www.xplosao.com.br/support
 // @contact.email suporte@xplosao.com.br
 
-// @BasePath /v1/api
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+
 func main() {
 	configs.Environment()
 	database.Connect()
