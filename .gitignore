@@ -14,3 +14,45 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+*.ibt
+*.dblwr
+*.cnf
+.docker/local/data/db/binlog.000001
+*.ibd
+*.sdi
+*.pem
+*.CSV
+*.CSM
+.docker/local/data/db/ibtmp1
+.docker/local/data/db/ibdata1
+.docker/local/data/db/binlog.000002
+.docker/local/data/db/binlog.000003
+.docker/local/data/db/binlog.000004
+.docker/local/data/db/binlog.000005
+.docker/local/data/db/binlog.000006
+.docker/local/data/db/binlog.000007
+.docker/local/data/db/binlog.000008
+.docker/local/data/db/binlog.000009
+.docker/local/data/db/binlog.000010
+.docker/local/data/db/binlog.000011
+.docker/local/data/db/binlog.000012
+.docker/local/data/db/binlog.000013
+.docker/local/data/db/binlog.000014
+.docker/local/data/db/binlog.000015
+.docker/local/data/db/binlog.000016
+.docker/local/data/db/binlog.000017
+.docker/local/data/db/binlog.000018
+.docker/local/data/db/binlog.000019
+.docker/local/data/db/binlog.000020
+.docker/local/data/db/binlog.000021
+.docker/local/data/db/binlog.000022
+.docker/local/data/db/binlog.000023
+.docker/local/data/db/binlog.000024
+.docker/local/data/db/binlog.000025
+.docker/local/data/db/binlog.000026
+.docker/local/data/db/binlog.index
+.docker/local/data/db/ib_buffer_pool
+.docker/local/data/db/ib_logfile0
+.docker/local/data/db/ib_logfile1
+.docker/local/data/db/undo_001
+.docker/local/data/db/undo_002
